@@ -40,10 +40,14 @@ public class Controller {
     public  TextArea textArea;
 
 
+    private WebSocketStompClient stompClient;
+    private StompSession session;
+    private String userId;
 
-    WebSocketStompClient stompClient;
-    StompSession session;
-    String userId;
+    @FXML
+    private void initialize() {
+        textArea.setText("Hello");
+    }
 
     private void createSocket() throws ExecutionException, InterruptedException, IOException {
         WebSocketClient simpleWebSocketClient = new StandardWebSocketClient();
