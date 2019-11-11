@@ -1,14 +1,24 @@
 package com.unn;
 
+import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.graphstream.algorithm.generator.DorogovtsevMendesGenerator;
+import org.graphstream.graph.Graph;
+import org.graphstream.graph.implementations.MultiGraph;
+import org.graphstream.graph.implementations.SingleGraph;
+import org.graphstream.ui.swingViewer.Viewer;
+import org.graphstream.ui.swingViewer.basicRenderer.SwingBasicGraphRenderer;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandler;
@@ -20,7 +30,9 @@ import org.springframework.web.socket.sockjs.client.Transport;
 import org.springframework.web.socket.sockjs.client.WebSocketTransport;
 import sample.ClientMessage;
 
+import javax.swing.*;
 import javax.websocket.*;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -38,7 +50,8 @@ public class Controller {
     public TextField text;
     @FXML
     public  TextArea textArea;
-
+    @FXML
+    public Pane graphPanel;
 
     private WebSocketStompClient stompClient;
     private StompSession session;
@@ -46,7 +59,29 @@ public class Controller {
 
     @FXML
     private void initialize() {
-        textArea.setText("Hello");
+        String styleSheet = "graph {padding: 20px;}";
+
+        MultiGraph g = new MultiGraph("mg");
+        Viewer v = new Viewer(g, Viewer.ThreadingModel.GRAPH_IN_SWING_THREAD);
+        DorogovtsevMendesGenerator gen = new DorogovtsevMendesGenerator();
+
+        g.setAttribute("ui.antialias");
+        g.setAttribute("ui.quality");
+        g.setAttribute("ui.stylesheet", styleSheet);
+
+        v.enableAutoLayout();
+        JPanel panel = v.addView("1", new SwingBasicGraphRenderer());
+
+        gen.addSink(g);
+        gen.begin();
+        for(int i = 0 ; i < 100 ; i++)
+            gen.nextEvents();
+        gen.end();
+        gen.removeSink(g);
+        final SwingNode swingNode = new SwingNode();
+
+        swingNode.setContent(panel);
+        graphPanel.getChildren().add(swingNode);
     }
 
     private void createSocket() throws ExecutionException, InterruptedException, IOException {

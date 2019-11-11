@@ -1,47 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.Pane?>
 
-<GridPane alignment="center" prefHeight="368.0" prefWidth="424.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unn.Controller">
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints maxHeight="57.0" minHeight="0.0" prefHeight="0.0" />
-      <RowConstraints maxHeight="66.0" minHeight="33.0" prefHeight="66.0" />
-   </rowConstraints>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unn.Controller">
    <children>
-      <FlowPane prefHeight="243.0" prefWidth="284.0" GridPane.rowIndex="1">
-         <children>
-            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
-              <tabs>
-                <Tab text="Untitled Tab 1">
-                  <content>
-                    <AnchorPane fx:id="panel" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </Tab>
-                <Tab text="Untitled Tab 2">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </Tab>
-              </tabs>
-            </TabPane>
-            <TextField fx:id="text" prefHeight="29.0" prefWidth="149.0" />
-            <TextArea fx:id="textArea" prefHeight="203.0" prefWidth="258.0" />
-            <Button fx:id="btn2" mnemonicParsing="false" onAction="#btnClick2" text="Send" />
-            <Button fx:id="btn1" mnemonicParsing="false" onAction="#btnClick1" text="Connect" />
-            <Button fx:id="btn4" layoutX="113.0" layoutY="242.0" mnemonicParsing="false" onAction="#btnClick4" text="get network element" />
-         </children>
-      </FlowPane>
+      <Button fx:id="btn2" layoutX="32.0" layoutY="343.0" mnemonicParsing="false" onAction="#btnClick2" text="send" />
+      <Button fx:id="btn1" layoutX="84.0" layoutY="343.0" mnemonicParsing="false" onAction="#btnClick1" text="connect" />
+      <Button fx:id="btn3" layoutX="136.0" layoutY="343.0" mnemonicParsing="false" onAction="#btnClick4" text="get elements" />
+      <TextArea fx:id="textArea" layoutX="32.0" layoutY="143.0" prefHeight="200.0" prefWidth="200.0" />
+      <TextField fx:id="text" layoutX="30.0" layoutY="118.0" />
+      <Pane fx:id="graphPanel" layoutX="243.0" layoutY="18.0" prefHeight="347.0" prefWidth="345.0" />
    </children>
-</GridPane>
+</Pane>
