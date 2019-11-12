@@ -14,14 +14,12 @@ import java.util.Map;
 public class MyStompSessionHandler extends StompSessionHandlerAdapter {
 
     private String userId;
-    private TextArea textArea;
-    private Integer isblock;
-    ServerMessage mes;
+    Utils utils;
 
 
-    public MyStompSessionHandler(String userId, ServerMessage m) {
+    public MyStompSessionHandler(String userId, Utils utils) {
         this.userId = userId;
-        mes = m;
+        this.utils = utils;
     }
 
     private void showHeaders(StompHeaders headers) {
@@ -55,15 +53,15 @@ public class MyStompSessionHandler extends StompSessionHandlerAdapter {
                 ObjectMapper mapper = new ObjectMapper();
                 try {
                     ServerMessage message = mapper.readValue(payload.toString(), ServerMessage.class);
-                    if(message.getMessage() == 1){
-                        mes.setMessage(1);
+                    if(message.getMessage() == 1 && !message.getFrom().equals(userId)){
+                        utils.setIsBlock(true);
                     }
-                    textArea.setText(textArea.getText() + " \n" + payload.toString());
+                    if(message.getMessage() == 2 ){
+                        utils.setIsBlock(false);
+                    }
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
-
-
             }
         });
     }

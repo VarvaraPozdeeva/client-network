@@ -59,9 +59,5 @@ public class ServerMessage
     public String toString()
     {
         return "{\"from\":\""+ from +"\",\"topic\": \""+topic+"\", \"message\": "+message+"}";
-//	return String
-//	    .format("{\"from\":\" %1$-10s\",\"topic\": \"%2$-10s\" \"time\":\" %4$-15d\" \"mesg\": %3$s}",
-//		    getFrom(), getTopic(),
-//		    getMessage(), getTime().getTime());
     }
 }

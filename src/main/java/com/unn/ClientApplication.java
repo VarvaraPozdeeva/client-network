@@ -1,22 +1,25 @@
 package com.unn;
 
 import com.unn.Panels.MainPanel;
+import com.unn.model.NetworkModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 
 public class ClientApplication extends JFrame {
 
     Utils utils = new Utils();
+    NetworkModel networkModel;
 
     public ClientApplication(){
         super("Network");
 
+        networkModel = new NetworkModel();
+        utils.createModel(networkModel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initComponent();
-        setPreferredSize(new Dimension(400, 500));
+       // setPreferredSize(new Dimension(400, 500));
         pack();
         setVisible(true);
     }
@@ -28,7 +31,9 @@ public class ClientApplication extends JFrame {
         JPanel content = new JPanel();
         content.setLayout(new BorderLayout());
 
-        JPanel main = new MainPanel(utils);
+
+        JPanel main = new MainPanel(utils, networkModel);
+        tabbedPane.addTab("Main", main);
 
         content.add(tabbedPane, BorderLayout.CENTER);
         getContentPane().add(content);

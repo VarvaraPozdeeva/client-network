@@ -1,15 +1,17 @@
 package com.unn.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @Data
-@Builder
+@RequiredArgsConstructor
 public class Link {
     private String id;
 
+    @JsonProperty("interfaceA")
     private final Interface interfaceA;
+    @JsonProperty("interfaceZ")
     private final Interface interfaceZ;
     @JsonProperty("a-ne")
     private String neAName;
