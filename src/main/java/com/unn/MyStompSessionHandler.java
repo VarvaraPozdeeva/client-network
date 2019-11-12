@@ -1,5 +1,7 @@
 package com.unn;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.scene.control.TextArea;
 import org.springframework.messaging.simp.stomp.*;
 import sample.ClientMessage;
@@ -13,11 +15,13 @@ public class MyStompSessionHandler extends StompSessionHandlerAdapter {
 
     private String userId;
     private TextArea textArea;
+    private Integer isblock;
+    ServerMessage mes;
 
 
-    public MyStompSessionHandler(String userId, TextArea textArea) {
+    public MyStompSessionHandler(String userId, ServerMessage m) {
         this.userId = userId;
-        this.textArea =textArea;
+        mes = m;
     }
 
     private void showHeaders(StompHeaders headers) {
@@ -34,7 +38,7 @@ public class MyStompSessionHandler extends StompSessionHandlerAdapter {
     }
 
     private void sendJsonMessage(StompSession session) {
-        ClientMessage msg = new ClientMessage(userId,"hello from spring");
+        ClientMessage msg = new ClientMessage(userId,3);
         session.send("/app/hello", msg);
     }
 
@@ -47,7 +51,19 @@ public class MyStompSessionHandler extends StompSessionHandlerAdapter {
 
             public void handleFrame(StompHeaders headers, Object payload) {
                 System.err.println(payload.toString());
-                textArea.setText(textArea.getText() + " \n" + payload.toString());
+
+                ObjectMapper mapper = new ObjectMapper();
+                try {
+                    ServerMessage message = mapper.readValue(payload.toString(), ServerMessage.class);
+                    if(message.getMessage() == 1){
+                        mes.setMessage(1);
+                    }
+                    textArea.setText(textArea.getText() + " \n" + payload.toString());
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+
+
             }
         });
     }

@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.Pane?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unn.Controller">
@@ -12,6 +13,9 @@
       <Button fx:id="btn3" layoutX="136.0" layoutY="343.0" mnemonicParsing="false" onAction="#btnClick4" text="get elements" />
       <TextArea fx:id="textArea" layoutX="32.0" layoutY="143.0" prefHeight="200.0" prefWidth="200.0" />
       <TextField fx:id="text" layoutX="30.0" layoutY="118.0" />
-      <Pane fx:id="graphPanel" layoutX="243.0" layoutY="18.0" prefHeight="347.0" prefWidth="345.0" />
+      <Pane fx:id="graphPanel" layoutX="243.0" layoutY="18.0" prefHeight="347.0" prefWidth="345.0">
+         <children>
+            <FlowPane fx:id="fPane" layoutX="14.0" layoutY="43.0" prefHeight="297.0" prefWidth="321.0" />
+         </children></Pane>
    </children>
 </Pane>

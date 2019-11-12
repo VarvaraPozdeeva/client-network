@@ -1,17 +1,20 @@
 package sample;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 public class ServerMessage
 {
     private String from;
-    private String message;
+    private int message;
     private String topic;
+    @JsonIgnore
     private Date time = new Date();
 
     public ServerMessage() {}
 
-    public ServerMessage(String from, String message, String topic)
+    public ServerMessage(String from, int message, String topic)
     {
 	this.from = from;
 	this.message = message;
@@ -28,12 +31,12 @@ public class ServerMessage
         this.from = from;
     }
 
-    public String getMessage()
+    public int getMessage()
     {
         return message;
     }
 
-    public void setMessage(String message)
+    public void setMessage(int message)
     {
         this.message = message;
     }
@@ -55,9 +58,10 @@ public class ServerMessage
 
     public String toString()
     {
-	return String
-	    .format("{from: %1$-10s | topic: %2$-10s | time: %4$-15d | mesg: %3$s}",
-		    getFrom(), getTopic(),
-		    getMessage(), getTime().getTime());
+        return "{\"from\":\""+ from +"\",\"topic\": \""+topic+"\", \"message\": "+message+"}";
+//	return String
+//	    .format("{\"from\":\" %1$-10s\",\"topic\": \"%2$-10s\" \"time\":\" %4$-15d\" \"mesg\": %3$s}",
+//		    getFrom(), getTopic(),
+//		    getMessage(), getTime().getTime());
     }
 }
