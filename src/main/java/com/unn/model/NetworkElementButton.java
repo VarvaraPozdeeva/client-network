@@ -1,9 +1,15 @@
 package com.unn.model;
 
-import javafx.scene.control.Button;
+import lombok.Data;
 
-public class NetworkElementButton extends Button {
-    public NetworkElementButton(String text) {
-        super(text);
+import javax.swing.*;
+
+@Data
+public class NetworkElementButton extends JButton {
+   private NetworkElement element;
+
+    public NetworkElementButton(NetworkElement element) {
+        this.element = element;
+        setText(element.getName());
     }
 }

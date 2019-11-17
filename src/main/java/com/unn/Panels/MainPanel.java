@@ -1,6 +1,7 @@
 package com.unn.Panels;
 
 import com.unn.Utils;
+import com.unn.model.NetworkElementButton;
 import com.unn.model.NetworkModel;
 
 import javax.swing.*;
@@ -64,12 +65,13 @@ public class MainPanel extends JPanel {
     private void createNElements() {
 
         model.getNetworkElements().forEach(e->{
-            JButton el = new JButton(e.getName());
+            NetworkElementButton el = new NetworkElementButton(e);
             el.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if(utils.isNotBlocking()){
-                        textArea.setText(el.getText());
+                        textArea.setText("name - " + el.getElement().getName() +
+                                "\ntype - " + el.getElement().getType() );
                     }
                 }
             });

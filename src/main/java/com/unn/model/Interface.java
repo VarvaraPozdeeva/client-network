@@ -14,4 +14,14 @@ public class Interface {
 
     @JsonProperty("ip-address")
     private String ipAddress;
+
+    @Override
+    public String toString() {
+        return "Interface{" +
+                "id='" + id + '\'' +
+                ", \nname='" + name + '\'' +
+                ",\n macAddress='" + macAddress + '\'' +
+                ", \nipAddress='" + ipAddress + '\'' +
+                '}';
+    }
 }

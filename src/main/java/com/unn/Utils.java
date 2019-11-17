@@ -88,8 +88,8 @@ public class Utils {
                 "          }" +
                 "    ]";
 
-        ClientResponse response = restService.type(MediaType.APPLICATION_JSON).post(ClientResponse.class, str);
-        System.out.println("Response " + response.getEntity(String.class));
+        //ClientResponse response = restService.type(MediaType.APPLICATION_JSON).post(ClientResponse.class, str);
+       // System.out.println("Response " + response.getEntity(String.class));
     }
 
     public void createSocket() {
