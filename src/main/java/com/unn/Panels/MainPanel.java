@@ -1,6 +1,6 @@
 package com.unn.Panels;
 
-import com.unn.Utils;
+import com.unn.IObserver;
 import com.unn.model.NetworkElementButton;
 import com.unn.model.NetworkModel;
 
@@ -12,22 +12,21 @@ import java.awt.event.ActionListener;
 import static com.unn.Blocking.BLOCK;
 import static com.unn.Blocking.UNBLOCK;
 
-public class MainPanel extends JPanel {
+public class MainPanel extends JPanel implements IObserver {
     JTextArea textArea;
     JButton lock;
     JButton unLock;
     JPanel elements;
-    Utils utils;
     NetworkModel model;
 
-    public MainPanel(Utils utils, NetworkModel model) {
-        this.utils = utils;
+    public MainPanel(NetworkModel model) {
         this.model = model;
-        utils.createSocket();
+        model.addObserver(this);
         init();
     }
     private void init(){
         elements = new JPanel(new FlowLayout());
+        JPanel buttons = new JPanel();
         textArea = new JTextArea();
         lock = new JButton("lock");
         lock.setBackground(Color.LIGHT_GRAY);
@@ -36,16 +35,16 @@ public class MainPanel extends JPanel {
 
         textArea.setColumns(20);
         textArea.setRows(2);
-        elements.add(textArea);
-        elements.add(lock);
-        elements.add(unLock);
+        buttons.add(textArea);
+        buttons.add(lock);
+        buttons.add(unLock);
 
         createNElements();
 
         lock.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                utils.sendMessage(BLOCK);
+                model.getService().sendMessage(BLOCK);
                 lock.setBackground(Color.RED);
                 unLock.setBackground(Color.LIGHT_GRAY);
             }
@@ -53,23 +52,26 @@ public class MainPanel extends JPanel {
         unLock.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                utils.sendMessage(UNBLOCK);
+                model.getService().sendMessage(UNBLOCK);
                 unLock.setBackground(Color.RED);
                 lock.setBackground(Color.LIGHT_GRAY);
             }
         });
         setLayout(new FlowLayout());
+        add(buttons);
         add(elements);
     }
 
     private void createNElements() {
+
+        elements.removeAll();
 
         model.getNetworkElements().forEach(e->{
             NetworkElementButton el = new NetworkElementButton(e);
             el.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if(utils.isNotBlocking()){
+                    if(model.getService().isNotBlocking()){
                         textArea.setText("name - " + el.getElement().getName() +
                                 "\ntype - " + el.getElement().getType() );
                     }
@@ -77,5 +79,10 @@ public class MainPanel extends JPanel {
             });
             elements.add(el);
         });
+    }
+
+    @Override
+    public void update() {
+        createNElements();
     }
 }

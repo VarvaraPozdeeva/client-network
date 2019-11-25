@@ -2,7 +2,7 @@ package com.unn;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javafx.scene.control.TextArea;
+import com.unn.model.Service;
 import org.springframework.messaging.simp.stomp.*;
 import sample.ClientMessage;
 import sample.ServerMessage;
@@ -14,12 +14,11 @@ import java.util.Map;
 public class MyStompSessionHandler extends StompSessionHandlerAdapter {
 
     private String userId;
-    Utils utils;
+    private Service service;
 
-
-    public MyStompSessionHandler(String userId, Utils utils) {
+    public MyStompSessionHandler(String userId, Service service) {
         this.userId = userId;
-        this.utils = utils;
+        this.service = service;
     }
 
     private void showHeaders(StompHeaders headers) {
@@ -54,10 +53,10 @@ public class MyStompSessionHandler extends StompSessionHandlerAdapter {
                 try {
                     ServerMessage message = mapper.readValue(payload.toString(), ServerMessage.class);
                     if(message.getMessage() == 1 && !message.getFrom().equals(userId)){
-                        utils.setIsBlock(true);
+                        service.setIsBlock(true);
                     }
                     if(message.getMessage() == 2 ){
-                        utils.setIsBlock(false);
+                        service.setIsBlock(false);
                     }
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
