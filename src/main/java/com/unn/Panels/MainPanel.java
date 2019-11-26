@@ -25,8 +25,9 @@ public class MainPanel extends JPanel implements IObserver {
         init();
     }
     private void init(){
-        elements = new JPanel(new FlowLayout());
+        elements = new JPanel();
         JPanel buttons = new JPanel();
+        JPanel mpanel = new JPanel();
         textArea = new JTextArea();
         lock = new JButton("lock");
         lock.setBackground(Color.LIGHT_GRAY);
@@ -35,10 +36,14 @@ public class MainPanel extends JPanel implements IObserver {
 
         textArea.setColumns(20);
         textArea.setRows(2);
-        buttons.add(textArea);
+        textArea.setPreferredSize(new Dimension(300,250));
+        lock.setPreferredSize(new Dimension(150, 50));
+        unLock.setPreferredSize(new Dimension(150,50));
         buttons.add(lock);
         buttons.add(unLock);
-
+        mpanel.setLayout(new BorderLayout());
+        mpanel.add(buttons, BorderLayout.SOUTH);
+        mpanel.add(textArea, BorderLayout.CENTER);
         createNElements();
 
         lock.addActionListener(new ActionListener() {
@@ -57,8 +62,8 @@ public class MainPanel extends JPanel implements IObserver {
                 lock.setBackground(Color.LIGHT_GRAY);
             }
         });
-        setLayout(new FlowLayout());
-        add(buttons);
+        //setLayout(new FlowLayout());
+        add(mpanel);
         add(elements);
     }
 
