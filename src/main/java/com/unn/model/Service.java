@@ -77,7 +77,8 @@ public class Service {
         session.send("/app/hello", new ClientMessage(userId, status.getValue()));
     }
 
-    public List<NetworkElement> getNenworkElements() {
+    public List<NetworkElement> getNetworkElements() {
+
 
         String neString = restService.path("network-elements").get(String.class);
 
@@ -124,4 +125,11 @@ public class Service {
         }
         return  ne;
     }
+    // Добавить интерфейсы (id ne; json string interface)
+    // Добавить link (id interface a, id interface z)
+    // Получить интерфесы по номеру network-element (id network-element)
+    // Получить link по номеру network-element (id network-element)
+    // Удаление network-element по id
+    // Удаление интерфейса по id
+    // Удаление link по id
 }

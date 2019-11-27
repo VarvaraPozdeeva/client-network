@@ -15,7 +15,7 @@ public class NetworkModel {
     Service service = new Service();
 
     public NetworkModel() {
-       networkElements =  service.getNenworkElements();
+       networkElements =  service.getNetworkElements();
        links = service.getLinks();
     }
 
