@@ -30,6 +30,17 @@ public class NetworkModel {
         return  ne;
     }
 
+    public String addInterface(String inter, String idNe) {
+        Interface i = service.addInterface(inter, idNe);
+        networkElements.forEach(ne->{
+            if (ne.getId().equals(idNe)) {
+                ne.addInterface(i);
+            }
+        });
+        update();
+        return inter;
+    }
+
     private void update() {
         observers.forEach(IObserver::update);
     }

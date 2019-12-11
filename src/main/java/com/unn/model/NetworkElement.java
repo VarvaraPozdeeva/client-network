@@ -27,4 +27,8 @@ public class NetworkElement {
                 ",\ninterfaces=" + interfaces +
                 '}';
     }
+
+    public boolean addInterface(Interface inter){
+        return interfaces.add(inter);
+    }
 }

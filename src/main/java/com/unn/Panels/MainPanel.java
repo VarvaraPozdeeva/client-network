@@ -18,6 +18,9 @@ public class MainPanel extends JPanel implements IObserver {
     JButton unLock;
     JPanel elements;
     NetworkModel model;
+    JButton addLink;
+    JButton addInterface;
+    AddPanel pan;
 
     public MainPanel(NetworkModel model) {
         this.model = model;
@@ -28,11 +31,14 @@ public class MainPanel extends JPanel implements IObserver {
         elements = new JPanel();
         JPanel buttons = new JPanel();
         JPanel mpanel = new JPanel();
+        addInterface = new JButton("Add Interface");
+        addLink = new JButton("Add Link");
         textArea = new JTextArea();
         lock = new JButton("lock");
         lock.setBackground(Color.LIGHT_GRAY);
         unLock = new JButton("unlock");
         unLock.setBackground(Color.RED);
+        pan = new AddPanel(model);
 
         textArea.setColumns(20);
         textArea.setRows(2);
@@ -41,9 +47,12 @@ public class MainPanel extends JPanel implements IObserver {
         unLock.setPreferredSize(new Dimension(150,50));
         buttons.add(lock);
         buttons.add(unLock);
+        buttons.add(addInterface);
+        buttons.add(addLink);
         mpanel.setLayout(new BorderLayout());
         mpanel.add(buttons, BorderLayout.SOUTH);
         mpanel.add(textArea, BorderLayout.CENTER);
+
         createNElements();
 
         lock.addActionListener(new ActionListener() {
@@ -62,6 +71,15 @@ public class MainPanel extends JPanel implements IObserver {
                 lock.setBackground(Color.LIGHT_GRAY);
             }
         });
+        addInterface.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                pan.setIdNe(textArea.getText());
+                add(pan);
+
+                //pan.setVisible(true);
+            }
+        });
         //setLayout(new FlowLayout());
         add(mpanel);
         add(elements);
@@ -77,8 +95,7 @@ public class MainPanel extends JPanel implements IObserver {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if(model.getService().isNotBlocking()){
-                        textArea.setText("name - " + el.getElement().getName() +
-                                "\ntype - " + el.getElement().getType() );
+                        textArea.setText(el.getElement().getId());
                     }
                 }
             });

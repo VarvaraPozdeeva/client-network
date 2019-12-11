@@ -123,7 +123,23 @@ public class Service {
             System.out.println("error" + e);
             e.printStackTrace();
         }
-        return  ne;
+        return ne;
+    }
+
+    public Interface addInterface(String inter, String idNe) {
+        ClientResponse response = restService.path("interfaces").path(idNe)
+                .type(MediaType.APPLICATION_JSON)
+                .post(ClientResponse.class, inter);
+        Interface i = null;
+        try {
+            i = mapper.readValue(response.getEntity(String.class), Interface.class);
+            System.out.println("Response " + i.toString());
+
+        } catch (JsonProcessingException e) {
+            System.out.println("error" + e);
+            e.printStackTrace();
+        }
+        return i;
     }
     // Добавить интерфейсы (id ne; json string interface)
     // Добавить link (id interface a, id interface z)
