@@ -41,6 +41,13 @@ public class NetworkModel {
         return inter;
     }
 
+    public String addLink(String link) {
+        Link l = service.addLink(link);
+        links.add(l);
+        update();
+        return link;
+    }
+
     private void update() {
         observers.forEach(IObserver::update);
     }

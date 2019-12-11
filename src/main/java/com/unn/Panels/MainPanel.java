@@ -21,6 +21,7 @@ public class MainPanel extends JPanel implements IObserver {
     JButton addLink;
     JButton addInterface;
     AddPanel pan;
+    AddLinkPanel linkPanel;
 
     public MainPanel(NetworkModel model) {
         this.model = model;
@@ -54,6 +55,7 @@ public class MainPanel extends JPanel implements IObserver {
         mpanel.add(textArea, BorderLayout.CENTER);
 
         createNElements();
+        linkPanel = new AddLinkPanel(model);
 
         lock.addActionListener(new ActionListener() {
             @Override
@@ -80,6 +82,13 @@ public class MainPanel extends JPanel implements IObserver {
                 //pan.setVisible(true);
             }
         });
+        addLink.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                linkPanel.setIdNe(textArea.getText());
+                add(linkPanel);
+            }
+        });
         //setLayout(new FlowLayout());
         add(mpanel);
         add(elements);
@@ -95,6 +104,7 @@ public class MainPanel extends JPanel implements IObserver {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if(model.getService().isNotBlocking()){
+                        textArea.setText("");
                         textArea.setText(el.getElement().getId());
                     }
                 }

@@ -141,6 +141,22 @@ public class Service {
         }
         return i;
     }
+
+    public Link addLink(String link) {
+        ClientResponse response = restService.path("links")
+                .type(MediaType.APPLICATION_JSON)
+                .post(ClientResponse.class, link);
+        Link l = null;
+        try {
+            l = mapper.readValue(response.getEntity(String.class), Link.class);
+            System.out.println("Response " + l.toString());
+
+        } catch (JsonProcessingException e) {
+            System.out.println("error" + e);
+            e.printStackTrace();
+        }
+        return l;
+    }
     // Добавить интерфейсы (id ne; json string interface)
     // Добавить link (id interface a, id interface z)
     // Получить интерфесы по номеру network-element (id network-element)
