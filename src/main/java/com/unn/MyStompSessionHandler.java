@@ -35,7 +35,7 @@ public class MyStompSessionHandler extends StompSessionHandlerAdapter {
     }
 
     private void sendJsonMessage(StompSession session) {
-        ClientMessage msg = new ClientMessage(userId,3);
+        ClientMessage msg = new ClientMessage(userId,5, "", "");
         session.send("/app/hello", msg);
     }
 
@@ -52,10 +52,10 @@ public class MyStompSessionHandler extends StompSessionHandlerAdapter {
                 ObjectMapper mapper = new ObjectMapper();
                 try {
                     ServerMessage message = mapper.readValue(payload.toString(), ServerMessage.class);
-                    if(message.getMessage() == 1 && !message.getFrom().equals(userId)){
+                    if(message.getStatus() == 1 && !message.getFrom().equals(userId)){
                         service.setIsBlock(true);
                     }
-                    if(message.getMessage() == 2 ){
+                    if(message.getStatus() == 2 ){
                         service.setIsBlock(false);
                     }
                 } catch (JsonProcessingException e) {

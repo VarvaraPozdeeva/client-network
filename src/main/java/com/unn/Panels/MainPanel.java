@@ -26,7 +26,6 @@ public class MainPanel extends JPanel implements IObserver {
     AddLinkPanel linkPanel;
     AddElement elemPanel;
 
-
     public MainPanel(NetworkModel model) {
         this.model = model;
         model.addObserver(this);
@@ -63,18 +62,15 @@ public class MainPanel extends JPanel implements IObserver {
         mpanel.add(buttons, BorderLayout.SOUTH);
         mpanel.add(textArea, BorderLayout.CENTER);
 
-
-
         createNElements();
-        //elementOut();
         linkPanel = new AddLinkPanel(model);
         elemPanel = new AddElement(model);
-
 
         lock.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                model.getService().sendMessage(BLOCK);
+                model.getService().sendMessage(BLOCK, textArea.getText());
+
                 lock.setBackground(Color.RED);
                 unLock.setBackground(Color.LIGHT_GRAY);
             }
@@ -82,7 +78,7 @@ public class MainPanel extends JPanel implements IObserver {
         unLock.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                model.getService().sendMessage(UNBLOCK);
+                model.getService().sendMessage(UNBLOCK, textArea.getText());
                 unLock.setBackground(Color.RED);
                 lock.setBackground(Color.LIGHT_GRAY);
             }
@@ -93,7 +89,6 @@ public class MainPanel extends JPanel implements IObserver {
                 pan.setIdNe(textArea.getText());
                 add(pan);
                 revalidate();
-                //pan.setVisible(true);
             }
         });
         addLink.addActionListener(new ActionListener() {
@@ -112,7 +107,6 @@ public class MainPanel extends JPanel implements IObserver {
                 revalidate();
             }
         });
-        //setLayout(new FlowLayout());
         add(mpanel);
         add(elements);
     }
