@@ -48,6 +48,21 @@ public class NetworkModel {
         return link;
     }
 
+    public String deleteNetworkElement(String idNe){
+        NetworkElement ne = service.deleteNetworkElement(idNe);
+        networkElements.remove(ne);
+        links = service.getLinks();
+        update();
+        return idNe;
+    }
+
+    public String deleteLink(String idLink){
+        Link l = service.deleteLink(idLink);
+        links.remove(l);
+        update();
+        return idLink;
+    }
+
     private void update() {
         observers.forEach(IObserver::update);
     }

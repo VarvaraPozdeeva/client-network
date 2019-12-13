@@ -11,8 +11,6 @@ import java.awt.event.ActionListener;
 public class AddPanel extends JPanel implements IObserver {
 
     private NetworkModel model;
-//    private JLabel nameNeLable;
-//    private JTextField neField;
     private JLabel nameIntLabel;
     private JLabel ipIntLabel;
     private JLabel macIntLabel;

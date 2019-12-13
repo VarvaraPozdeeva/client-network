@@ -7,7 +7,10 @@ import java.util.stream.Stream;
 @Getter
 public enum Blocking {
     BLOCK(1),
-    UNBLOCK(2);
+    UNBLOCK(2),
+    LOCK_LOCK(3),
+    UNBLOCK_FOR_LINK(4);
+
     private Integer value;
 
     Blocking(Integer val) {

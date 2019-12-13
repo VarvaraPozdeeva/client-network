@@ -65,7 +65,8 @@ public class MainPanel extends JPanel implements IObserver {
         lock.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                model.getService().sendMessage(BLOCK);
+                model.getService().sendMessage(BLOCK, textArea.getText());
+
                 lock.setBackground(Color.RED);
                 unLock.setBackground(Color.LIGHT_GRAY);
             }
@@ -73,7 +74,7 @@ public class MainPanel extends JPanel implements IObserver {
         unLock.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                model.getService().sendMessage(UNBLOCK);
+                model.getService().sendMessage(UNBLOCK, textArea.getText());
                 unLock.setBackground(Color.RED);
                 lock.setBackground(Color.LIGHT_GRAY);
             }
@@ -83,8 +84,7 @@ public class MainPanel extends JPanel implements IObserver {
             public void actionPerformed(ActionEvent actionEvent) {
                 pan.setIdNe(textArea.getText());
                 add(pan);
-
-                //pan.setVisible(true);
+                revalidate();
             }
         });
         addLink.addActionListener(new ActionListener() {
@@ -92,17 +92,16 @@ public class MainPanel extends JPanel implements IObserver {
             public void actionPerformed(ActionEvent e) {
                 linkPanel.setIdNe(textArea.getText());
                 add(linkPanel);
+                revalidate();
             }
         });
         addElement.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 add(elemPanel);
-
+                revalidate();
             }
         });
-        //setLayout(new FlowLayout());
         add(mpanel);
         add(elements);
     }

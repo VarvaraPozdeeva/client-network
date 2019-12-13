@@ -7,5 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class ClientMessage {
     private String from;
-    private int text;
+    private int status;
+    private String idNeA;
+    private String idNeZ = "";
 }
