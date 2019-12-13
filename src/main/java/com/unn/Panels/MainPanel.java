@@ -2,6 +2,7 @@ package com.unn.Panels;
 
 import com.unn.IObserver;
 import com.unn.model.NetworkElement;
+import com.unn.model.NetworkElementButton;
 import com.unn.model.NetworkModel;
 
 import javax.swing.*;
@@ -61,12 +62,16 @@ public class MainPanel extends JPanel implements IObserver {
         buttons.add(addInterface);
         buttons.add(addLink);
         buttons.add(addElement);
+
+        elements.setLayout(new GridLayout(8, 1));
+        mpanel.setLayout(new BorderLayout(5,5));
         buttons.add(addLinkButton);
         buttons.add(saveLinkButton);
         buttons.add(deleteElement);
         mpanel.setLayout(new BorderLayout());
         mpanel.add(buttons, BorderLayout.SOUTH);
         mpanel.add(textArea, BorderLayout.CENTER);
+        mpanel.add(elements , BorderLayout.EAST);
 
         createNElements();
         linkPanel = new AddLinkPanel(model);
@@ -108,7 +113,6 @@ public class MainPanel extends JPanel implements IObserver {
             @Override
             public void actionPerformed(ActionEvent e) {
                elemPanel.setVisible(true);
-                //add(elemPanel);
                 revalidate();
             }
         });
@@ -146,7 +150,7 @@ public class MainPanel extends JPanel implements IObserver {
             }
         });
         add(mpanel);
-        add(elements);
+       // add(elements);
     }
 
     private void createNElements() {

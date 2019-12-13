@@ -32,6 +32,16 @@ public class NetworkModel {
         return  netElem;
     }
 
+    public NetworkElement addNetworkElementWithInterface(String ne, String inter){
+        NetworkElement netElem = service.addNetworkElement(ne);
+        Interface i = service.addInterface(inter, netElem.getId());
+        netElem.setInterfaces(new ArrayList<Interface>());
+        netElem.getInterfaces().add(i);
+        networkElements.add(netElem);
+        update();
+        return  netElem;
+    }
+
     public String addInterface(String inter, String idNe) {
         Interface i = service.addInterface(inter, idNe);
         networkElements.forEach(ne->{
