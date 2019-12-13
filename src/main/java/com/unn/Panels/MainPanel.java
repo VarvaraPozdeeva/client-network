@@ -20,8 +20,10 @@ public class MainPanel extends JPanel implements IObserver {
     NetworkModel model;
     JButton addLink;
     JButton addInterface;
+    JButton addElement;
     AddPanel pan;
     AddLinkPanel linkPanel;
+    AddElement elemPanel;
 
     public MainPanel(NetworkModel model) {
         this.model = model;
@@ -34,6 +36,7 @@ public class MainPanel extends JPanel implements IObserver {
         JPanel mpanel = new JPanel();
         addInterface = new JButton("Add Interface");
         addLink = new JButton("Add Link");
+        addElement = new JButton("Add new element");
         textArea = new JTextArea();
         lock = new JButton("lock");
         lock.setBackground(Color.LIGHT_GRAY);
@@ -50,12 +53,14 @@ public class MainPanel extends JPanel implements IObserver {
         buttons.add(unLock);
         buttons.add(addInterface);
         buttons.add(addLink);
+        buttons.add(addElement);
         mpanel.setLayout(new BorderLayout());
         mpanel.add(buttons, BorderLayout.SOUTH);
         mpanel.add(textArea, BorderLayout.CENTER);
 
         createNElements();
         linkPanel = new AddLinkPanel(model);
+        elemPanel = new AddElement(model);
 
         lock.addActionListener(new ActionListener() {
             @Override
@@ -89,6 +94,14 @@ public class MainPanel extends JPanel implements IObserver {
                 add(linkPanel);
             }
         });
+        addElement.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                add(elemPanel);
+
+            }
+        });
         //setLayout(new FlowLayout());
         add(mpanel);
         add(elements);
@@ -110,6 +123,7 @@ public class MainPanel extends JPanel implements IObserver {
                 }
             });
             elements.add(el);
+            elements.revalidate();
         });
     }
 
