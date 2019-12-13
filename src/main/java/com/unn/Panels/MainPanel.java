@@ -59,11 +59,12 @@ public class MainPanel extends JPanel implements IObserver {
         buttons.add(addInterface);
         buttons.add(addLink);
         buttons.add(addElement);
-        mpanel.setLayout(new BorderLayout());
+
+        elements.setLayout(new GridLayout(8, 1));
+        mpanel.setLayout(new BorderLayout(5,5));
         mpanel.add(buttons, BorderLayout.SOUTH);
         mpanel.add(textArea, BorderLayout.CENTER);
-
-
+        mpanel.add(elements , BorderLayout.EAST);
 
         createNElements();
         //elementOut();
@@ -107,13 +108,12 @@ public class MainPanel extends JPanel implements IObserver {
             @Override
             public void actionPerformed(ActionEvent e) {
                elemPanel.setVisible(true);
-                //add(elemPanel);
                 revalidate();
             }
         });
         //setLayout(new FlowLayout());
         add(mpanel);
-        add(elements);
+       // add(elements);
     }
 
     private void createNElements() {
