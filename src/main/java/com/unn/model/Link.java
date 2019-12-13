@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
 @Data
-
 public class Link {
 
     @JsonProperty("id")
