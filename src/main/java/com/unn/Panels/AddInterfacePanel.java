@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddInterfacePanel extends JPanel implements IObserver {
+public class AddInterfacePanel extends JPanel {
 
     private NetworkModel model;
     private JLabel nameIntLabel;
@@ -24,7 +24,6 @@ public class AddInterfacePanel extends JPanel implements IObserver {
 
     public AddInterfacePanel(NetworkModel model) {
         this.model = model;
-        model.addObserver(this);
         init();
     }
 
@@ -43,6 +42,7 @@ public class AddInterfacePanel extends JPanel implements IObserver {
         macAddress = new JTextField();
         macAddress.setColumns(30);
         addButton = new JButton("Add");
+        setLayout(new GridLayout(4,2));
         add(nameIntLabel);
         add(nameInterface);
         add(ipIntLabel);
@@ -53,27 +53,12 @@ public class AddInterfacePanel extends JPanel implements IObserver {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                if(neField.getText().equals("")){
-//                    neField.setText("enter name");
-//                }
-//                else {
-//                    model.addNetworkElement("{ \"name\": \"" + neField.getText()+ "\"}");
-//                }
                 model.addInterface("{ \"name\": \"" + nameInterface.getText()+ "\"," +
                         " \"ip-address\": \"" + ipAddress.getText() + "\"," +
                         "\"mac-address\": \"" + macAddress.getText() + "\" }", idNe);
 
             }
         });
-
-        setLayout(new FlowLayout());
-//        add(nameNeLable);
-//        add(neField);
         add(addButton);
-    }
-
-    @Override
-    public void update() {
-
     }
 }

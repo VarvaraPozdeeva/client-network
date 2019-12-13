@@ -8,7 +8,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
-import com.unn.Blocking;
+import com.unn.Status;
 import com.unn.MyStompSessionHandler;
 import lombok.Data;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
@@ -36,11 +36,13 @@ public class Service {
     private String userId;
     WebResource restService;
     ObjectMapper mapper;
-    Boolean isBlock;
+    List<String> lockingElements;
     Client client;
+    NetworkModel model;
 
-    public Service() {
-        isBlock = false;
+    public Service(NetworkModel model) {
+        this.model = model;
+        lockingElements = new ArrayList<>();
         createSocket();
         ClientConfig config = new DefaultClientConfig();
         mapper = new ObjectMapper();
@@ -69,19 +71,18 @@ public class Service {
         }
     }
 
-
-    public Boolean isNotBlocking(){
-        return !isBlock;
+    public void sendMessage(Status status){
+        session.send("/app/hello", new ClientMessage(userId, status.getValue(), "",""));
     }
-    public void sendMessage(Blocking status, String idNe){
+    public void sendMessage(Status status, String idNe){
         session.send("/app/hello", new ClientMessage(userId, status.getValue(), idNe,""));
+    }
+    public void sendMessage(Status status, String idNeA, String idNeZ){
+        session.send("/app/hello", new ClientMessage(userId, status.getValue(), idNeA,idNeZ));
     }
 
     public List<NetworkElement> getNetworkElements() {
-
-
         String neString = restService.path("network-elements").get(String.class);
-
         System.out.println(neString);
         List<NetworkElement> networkElements = null;
         try {
@@ -129,16 +130,14 @@ public class Service {
     }
 
     public NetworkElement deleteNetworkElement(String idNe) {
-        ClientResponse response = restService.path("network-elements")
-                .type(MediaType.APPLICATION_JSON)
-                .delete(ClientResponse.class, idNe);
+        ClientResponse response = restService.path("network-elements").path(idNe)
+                .delete(ClientResponse.class);
         return getEntity(response, NetworkElement.class);
     }
 
     public Link deleteLink(String idLink) {
-        ClientResponse response = restService.path("links")
-                .type(MediaType.APPLICATION_JSON)
-                .delete(ClientResponse.class, idLink);
+        ClientResponse response = restService.path("links").path(idLink)
+                .delete(ClientResponse.class);
         return (Link) getEntity(response, List.class);
     }
 
@@ -147,7 +146,6 @@ public class Service {
         try {
             entity = mapper.readValue(response.getEntity(String.class), c);
             System.out.println("Response " + entity.toString());
-
         } catch (JsonProcessingException e) {
             System.out.println("error" + e);
             e.printStackTrace();

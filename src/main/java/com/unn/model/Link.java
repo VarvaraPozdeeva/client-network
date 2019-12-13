@@ -25,4 +25,10 @@ public class Link {
     @JsonProperty("z-interface")
     private String interZName;
 
+   /*
+   "{ \"a-ne\": \" "+ + "\","+
+            "\"z-ne\": \""  + + "\","+
+            "\"a-interface\": \"" + + "\","+
+            "\"z-interface\": \" "+ +"\" }"
+   */
 }

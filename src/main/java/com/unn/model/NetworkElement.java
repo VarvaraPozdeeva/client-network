@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -15,7 +16,7 @@ public class NetworkElement {
     private String type;
     private String vendor;
     @JsonProperty("interfaces")
-    private List<Interface> interfaces;
+    private List<Interface> interfaces = new ArrayList<>();
 
     @Override
     public String toString() {

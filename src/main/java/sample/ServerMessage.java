@@ -17,6 +17,7 @@ public class ServerMessage
 
     public String toString()
     {
-        return "{\"from\":\""+ from +"\",\"topic\": \""+topic+"\", \"status\": "+ status +"}";
+        return "{\"from\":\""+ from +"\",\"topic\": \""+topic+ "\", \"status\": "+ status
+                + ", \"idNeA\": \""+ idNeA + "\", \"idNeZ\": \""+ idNeZ +"\" }";
     }
 }
