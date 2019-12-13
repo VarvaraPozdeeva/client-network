@@ -10,6 +10,7 @@ import sample.ServerMessage;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
 
 public class MyStompSessionHandler extends StompSessionHandlerAdapter {
 
@@ -35,7 +36,7 @@ public class MyStompSessionHandler extends StompSessionHandlerAdapter {
     }
 
     private void sendJsonMessage(StompSession session) {
-        ClientMessage msg = new ClientMessage(userId,3);
+        ClientMessage msg = new ClientMessage(userId,6, "", "");
         session.send("/app/hello", msg);
     }
 
@@ -52,11 +53,32 @@ public class MyStompSessionHandler extends StompSessionHandlerAdapter {
                 ObjectMapper mapper = new ObjectMapper();
                 try {
                     ServerMessage message = mapper.readValue(payload.toString(), ServerMessage.class);
-                    if(message.getMessage() == 1 && !message.getFrom().equals(userId)){
-                        service.setIsBlock(true);
-                    }
-                    if(message.getMessage() == 2 ){
-                        service.setIsBlock(false);
+                    switch (message.getStatus()){
+                        case 1: {
+                            if(!message.getFrom().equals(userId)){
+                                service.getLockingElements().add(message.getIdNeA());
+                            }
+                            break;
+                        }
+                        case 2:{
+                            service.getLockingElements().remove(message.getIdNeA());
+                            break;
+                        }
+                        case 3:{
+                            service.getLockingElements().add(message.getIdNeA());
+                            service.getLockingElements().add(message.getIdNeZ());
+                            break;
+                        }
+                        case 4:{
+                            service.getLockingElements().remove(message.getIdNeA());
+                            service.getLockingElements().remove(message.getIdNeZ());
+                            break;
+                        }
+                        case 5:{
+                            service.getModel().updateFromServer();
+                            break;
+                        }
+
                     }
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
@@ -69,7 +91,6 @@ public class MyStompSessionHandler extends StompSessionHandlerAdapter {
     public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
         System.err.println("Connected! Headers:");
         showHeaders(connectedHeaders);
-
         subscribeTopic("/topic/messages", session);
         sendJsonMessage(session);
     }

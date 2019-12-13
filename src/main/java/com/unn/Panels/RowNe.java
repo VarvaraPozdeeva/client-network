@@ -28,6 +28,10 @@ public class RowNe extends JPanel implements IObserver {
         add(selNe);
     }
 
+    public Boolean isSelected(){
+        return selNe.isSelected();
+    }
+
     @Override
     public void update() {
 
