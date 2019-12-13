@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddPanel extends JPanel implements IObserver {
+public class AddInterfacePanel extends JPanel implements IObserver {
 
     private NetworkModel model;
 //    private JLabel nameNeLable;
@@ -24,7 +24,7 @@ public class AddPanel extends JPanel implements IObserver {
     private JButton addButton;
 
 
-    public AddPanel(NetworkModel model) {
+    public AddInterfacePanel(NetworkModel model) {
         this.model = model;
         model.addObserver(this);
         init();

@@ -1,6 +1,5 @@
 package com.unn;
 
-import com.unn.Panels.AddPanel;
 import com.unn.Panels.MainPanel;
 import com.unn.model.NetworkModel;
 

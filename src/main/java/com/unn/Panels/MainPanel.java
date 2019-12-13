@@ -20,7 +20,7 @@ public class MainPanel extends JPanel implements IObserver {
     NetworkModel model;
     JButton addLink;
     JButton addInterface;
-    AddPanel pan;
+    AddInterfacePanel pan;
     AddLinkPanel linkPanel;
 
     public MainPanel(NetworkModel model) {
@@ -39,7 +39,7 @@ public class MainPanel extends JPanel implements IObserver {
         lock.setBackground(Color.LIGHT_GRAY);
         unLock = new JButton("unlock");
         unLock.setBackground(Color.RED);
-        pan = new AddPanel(model);
+        pan = new AddInterfacePanel(model);
 
         textArea.setColumns(20);
         textArea.setRows(2);
