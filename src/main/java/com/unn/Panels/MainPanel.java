@@ -83,8 +83,7 @@ public class MainPanel extends JPanel implements IObserver {
             public void actionPerformed(ActionEvent actionEvent) {
                 pan.setIdNe(textArea.getText());
                 add(pan);
-
-                //pan.setVisible(true);
+                revalidate();
             }
         });
         addLink.addActionListener(new ActionListener() {
@@ -92,14 +91,15 @@ public class MainPanel extends JPanel implements IObserver {
             public void actionPerformed(ActionEvent e) {
                 linkPanel.setIdNe(textArea.getText());
                 add(linkPanel);
+                revalidate();
             }
         });
         addElement.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                add(elemPanel);
-
+               elemPanel.setVisible(true);
+                //add(elemPanel);
+                revalidate();
             }
         });
         //setLayout(new FlowLayout());
