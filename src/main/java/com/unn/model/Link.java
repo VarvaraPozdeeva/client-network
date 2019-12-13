@@ -17,9 +17,9 @@ public class Link {
     private String id;
 
 //    @JsonProperty("interfaceA")
-//    private final Interface interfaceA;
+    private  Interface interfaceA;
 //    @JsonProperty("interfaceZ")
-//    private final Interface interfaceZ;
+    private  Interface interfaceZ;
     @JsonProperty("a-ne")
     private String neAName;
 
