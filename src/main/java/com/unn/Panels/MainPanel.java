@@ -19,10 +19,7 @@ public class MainPanel extends JPanel implements IObserver {
     private JButton addLinkButton;
     private JPanel elements;
     private NetworkModel model;
-    private JButton addInterface;
     private JButton addElement;
-    private JButton deleteElement;
-    private AddInterfacePanel pan;
     GridLayout g;
 
     private AddElement elemPanel;
@@ -47,7 +44,6 @@ public class MainPanel extends JPanel implements IObserver {
         save = new JButton("save");
         save.setBackground(Color.RED);
         addLinkButton = new JButton("Add new Link");
-        pan = new AddInterfacePanel(model);
         infoPanel = new InfoPanel(model);
 
         textArea.setColumns(20);
@@ -63,11 +59,9 @@ public class MainPanel extends JPanel implements IObserver {
         elements.setLayout(g);
         mpanel.setLayout(new BorderLayout(5,5));
         buttons.add(addLinkButton);
-        buttons.add(deleteElement);
         mpanel.setLayout(new BorderLayout());
         mpanel.add(buttons, BorderLayout.SOUTH);
         mpanel.add(infoPanel, BorderLayout.CENTER);
-       // mpanel.add(textArea, BorderLayout.CENTER);
         mpanel.add(elements , BorderLayout.EAST);
 
         createNElements();

@@ -68,7 +68,10 @@ public class InfoPanel extends Panel implements IObserver {
       networkElement = ne;
       links = model.getLinks(ne.getId());
 
+      JLabel interfaces = new JLabel("INTERFACES");
+      add(interfaces);
       networkElement.getInterfaces().forEach(inter->{
+
          JLabel name = new JLabel(inter.getName());
          JLabel ip = new JLabel(inter.getIpAddress());
          JLabel mac = new JLabel(inter.getMacAddress());
@@ -79,15 +82,20 @@ public class InfoPanel extends Panel implements IObserver {
          add(interfacePanel);
       });
 
+      JLabel linksLabel = new JLabel("LINKS");
+      add(linksLabel);
       links.forEach(link->{
-         JLabel elementA = new JLabel(link.getNeAName());
-         JLabel elementZ = new JLabel(link.getNeZName());
+
+         JLabel elementA = new JLabel(link.getNeAName()+" - ");
+         JLabel elementZ = new JLabel(link.getNeZName()+" - ");
+         JLabel l = new JLabel("-- >");
          JLabel interfaceA = new JLabel(link.getInterAName());
          JLabel interfaceZ = new JLabel(link.getInterZName());
          JPanel linkPanel = new JPanel();
          linkPanel.add(elementA);
-         linkPanel.add(elementZ);
          linkPanel.add(interfaceA);
+         linkPanel.add(l);
+         linkPanel.add(elementZ);
          linkPanel.add(interfaceZ);
          add(linkPanel);
       });
