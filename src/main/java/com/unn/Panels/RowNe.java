@@ -20,6 +20,9 @@ public class RowNe extends JPanel implements IObserver {
         this.element = element;
         nameNe = new JButton();
         nameNe.setText(element.getName());
+        nameNe.setBorderPainted(false);
+        nameNe.setContentAreaFilled(false);
+        nameNe.setFocusPainted(false);
         typeNe = new JLabel();
         typeNe.setText(element.getType());
         selNe = new JCheckBox();
