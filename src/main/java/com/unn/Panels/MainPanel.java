@@ -17,13 +17,13 @@ public class MainPanel extends JPanel implements IObserver {
     private JButton edit;
     private JButton save;
     private JButton addLinkButton;
-    private JButton saveLinkButton;
     private JPanel elements;
     private NetworkModel model;
     private JButton addInterface;
     private JButton addElement;
     private JButton deleteElement;
     private AddInterfacePanel pan;
+    GridLayout g;
 
     private AddElement elemPanel;
     private List<RowNe> listNe;
@@ -47,7 +47,6 @@ public class MainPanel extends JPanel implements IObserver {
         save = new JButton("save");
         save.setBackground(Color.RED);
         addLinkButton = new JButton("Add new Link");
-        saveLinkButton = new JButton("save Link");
         pan = new AddInterfacePanel(model);
         infoPanel = new InfoPanel(model);
 
@@ -60,10 +59,11 @@ public class MainPanel extends JPanel implements IObserver {
         buttons.add(save);
         buttons.add(addElement);
 
-        elements.setLayout(new GridLayout(8, 1));
+        g = new GridLayout(model.getNetworkElements().size(), 1);
+        elements.setLayout(g);
         mpanel.setLayout(new BorderLayout(5,5));
         buttons.add(addLinkButton);
-        buttons.add(saveLinkButton);
+        buttons.add(deleteElement);
         mpanel.setLayout(new BorderLayout());
         mpanel.add(buttons, BorderLayout.SOUTH);
         mpanel.add(infoPanel, BorderLayout.CENTER);
@@ -72,7 +72,6 @@ public class MainPanel extends JPanel implements IObserver {
 
         createNElements();
         elemPanel = new AddElement(model);
-
         edit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -117,16 +116,9 @@ public class MainPanel extends JPanel implements IObserver {
                     model.lockElements(networkElements.get(0).getId(), networkElements.get(1).getId());
                     System.out.println("LOCK ELEMENTS");
                     AddLinkPanel linkPanel = new AddLinkPanel(model, networkElements);
+                    networkElements.removeAll(networkElements);
                     linkPanel.setVisible(true);
                 }
-            }
-        });
-        saveLinkButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                model.releaseElements(networkElements.get(0).getId(), networkElements.get(1).getId());
-                networkElements.removeAll(networkElements);
-                System.out.println("UNLOCK ELEMENTS");
             }
         });
 
@@ -134,7 +126,9 @@ public class MainPanel extends JPanel implements IObserver {
     }
 
     private void createNElements() {
+        g.setRows(model.getNetworkElements().size());
         elements.removeAll();
+        listNe.removeAll(listNe);
         model.getNetworkElements().forEach(e->{
             RowNe el = new RowNe(e);
             el.getNameNe().addActionListener(new ActionListener() {
