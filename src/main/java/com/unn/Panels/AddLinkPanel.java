@@ -18,6 +18,7 @@ public class AddLinkPanel extends JDialog {
 
     private JLabel aInterface;
     private JLabel zInterface;
+    private JLabel header;
 
     private JComboBox aIntCombo;
     private JComboBox zIntCombo;
@@ -34,15 +35,18 @@ public class AddLinkPanel extends JDialog {
         init();
         setVisible(false);
         setLocationRelativeTo(null);
-        setSize(600, 500);
+        setSize(600, 200);
     }
 
     private void init() {
         mainPanel = new JPanel();
         JPanel lcPanel = new JPanel();
         JPanel savePanel = new JPanel();
+        JPanel headPanel = new JPanel();
+
         aInterface = new JLabel("Interface A");
         zInterface = new JLabel("Interface Z");
+        header = new JLabel("Add Link");
 
         List<String> namesA = new ArrayList<>();
         neA.getInterfaces().forEach(inter -> namesA.add(inter.getName()));
@@ -54,7 +58,11 @@ public class AddLinkPanel extends JDialog {
 
         addButton = new JButton("Save");
 
-        lcPanel.setLayout(new GridLayout(1,2));
+        aIntCombo.setPreferredSize(new Dimension(200, 25));
+        zIntCombo.setPreferredSize(new Dimension(200, 25));
+        addButton.setSize(60, 20);
+
+        lcPanel.setLayout(new FlowLayout());
         lcPanel.add(aInterface);
         lcPanel.add(aIntCombo);
         lcPanel.add(zInterface);
@@ -63,7 +71,11 @@ public class AddLinkPanel extends JDialog {
         savePanel.setLayout(new FlowLayout());
         savePanel.add(addButton);
 
-        mainPanel.setLayout(new BorderLayout());
+        headPanel.setLayout(new FlowLayout());
+        headPanel.add(header);
+
+        mainPanel.setLayout(new BorderLayout(5,30));
+        mainPanel.add(headPanel, BorderLayout.NORTH);
         mainPanel.add(lcPanel, BorderLayout.CENTER);
         mainPanel.add(savePanel, BorderLayout.SOUTH);
 
@@ -74,6 +86,7 @@ public class AddLinkPanel extends JDialog {
                         "\"z-ne\": \""  + neZ.getName() + "\","+
                         "\"a-interface\": \"" + aIntCombo.getSelectedItem() + "\","+
                         "\"z-interface\": \""+ zIntCombo.getSelectedItem() +"\" }");
+                dispose();
             }
         });
         add(mainPanel);
