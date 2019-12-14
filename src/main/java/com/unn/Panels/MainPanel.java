@@ -24,7 +24,7 @@ public class MainPanel extends JPanel implements IObserver {
     private JButton addElement;
     private JButton deleteElement;
     private AddInterfacePanel pan;
-    private AddLinkPanel linkPanel;
+
     private AddElement elemPanel;
     private List<RowNe> listNe;
 
@@ -73,7 +73,6 @@ public class MainPanel extends JPanel implements IObserver {
         mpanel.add(elements , BorderLayout.EAST);
 
         createNElements();
-        linkPanel = new AddLinkPanel(model);
         elemPanel = new AddElement(model);
 
         edit.addActionListener(new ActionListener() {
@@ -119,10 +118,13 @@ public class MainPanel extends JPanel implements IObserver {
                 if(networkElements.size()!=2){
                     networkElements.removeAll(networkElements);
                     System.out.println("NEED SELECTED TWO ELEMENTS");
+                    JOptionPane.showMessageDialog(null, "NEED SELECTED TWO ELEMENTS");
                 }
                 else {
                     model.lockElements(networkElements.get(0).getId(), networkElements.get(1).getId());
                     System.out.println("LOCK ELEMENTS");
+                    AddLinkPanel linkPanel = new AddLinkPanel(model, networkElements);
+                    linkPanel.setVisible(true);
                 }
             }
         });

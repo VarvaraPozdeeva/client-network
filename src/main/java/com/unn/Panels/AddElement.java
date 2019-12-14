@@ -97,6 +97,11 @@ public class AddElement extends JDialog {
                             " \"ip-address\": \"" + ipAddress.getText() + "\"," +
                             "\"mac-address\": \"" + macAddress.getText() + "\" }" );
                     dispose();
+                    neField.setText("");
+                    typeField.setText("");
+                    nameInterface.setText("");
+                    ipAddress.setText("");
+                    macAddress.setText("");
                 }
             }
         });
