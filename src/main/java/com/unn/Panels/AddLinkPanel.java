@@ -70,10 +70,10 @@ public class AddLinkPanel extends JDialog {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                model.addLink("{ \"a-ne\": \" "+ neA.getName() + "\","+
+                model.addLink("{ \"a-ne\": \""+ neA.getName() + "\","+
                         "\"z-ne\": \""  + neZ.getName() + "\","+
                         "\"a-interface\": \"" + aIntCombo.getSelectedItem() + "\","+
-                        "\"z-interface\": \" "+ zIntCombo.getSelectedItem() +"\" }");
+                        "\"z-interface\": \""+ zIntCombo.getSelectedItem() +"\" }");
             }
         });
         add(mainPanel);
