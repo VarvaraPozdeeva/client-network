@@ -1,6 +1,5 @@
 package com.unn.Panels;
 
-import com.unn.IObserver;
 import com.unn.model.NetworkElement;
 import com.unn.model.NetworkModel;
 import javax.swing.*;
@@ -8,7 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddElement extends JDialog implements IObserver {
+public class AddElement extends JDialog {
     private NetworkModel model;
 
     private JLabel header;
@@ -29,7 +28,6 @@ public class AddElement extends JDialog implements IObserver {
 
     public AddElement(NetworkModel model){
         this.model = model;
-        model.addObserver(this);
         init();
         setVisible(false);
         setLocationRelativeTo(null);
@@ -104,10 +102,5 @@ public class AddElement extends JDialog implements IObserver {
         });
 
         add(mainPan);
-    }
-
-    @Override
-    public void update() {
-
     }
 }

@@ -103,4 +103,8 @@ public class NetworkModel {
     public boolean canShow(String idNe) {
         return !service.getLockingElements().contains(idNe);
     }
+
+    public List<Link> getLinks(String id) {
+        return service.getLinks(id);
+    }
 }

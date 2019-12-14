@@ -152,4 +152,17 @@ public class Service {
         }
         return entity;
     }
+
+    public List<Link> getLinks(String id) {
+
+        String response = restService.path("links").path(id).get(String.class);
+        List<Link> links = null;
+
+        try {
+            links = mapper.readValue(response, new TypeReference<List<Link>>(){});
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return  links;
+    }
 }

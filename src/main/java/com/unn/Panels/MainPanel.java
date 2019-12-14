@@ -2,7 +2,6 @@ package com.unn.Panels;
 
 import com.unn.IObserver;
 import com.unn.model.NetworkElement;
-import com.unn.model.NetworkElementButton;
 import com.unn.model.NetworkModel;
 
 import javax.swing.*;
@@ -13,21 +12,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainPanel extends JPanel implements IObserver {
-    JTextArea textArea;
-    JButton edit;
-    JButton save;
-    JButton addLinkButton;
-    JButton saveLinkButton;
-    JPanel elements;
-    NetworkModel model;
-    JButton addLink;
-    JButton addInterface;
-    JButton addElement;
-    JButton deleteElement;
-    AddInterfacePanel pan;
-    AddLinkPanel linkPanel;
-    AddElement elemPanel;
-    List<RowNe> listNe;
+    private JTextArea textArea;
+    private InfoPanel infoPanel;
+    private JButton edit;
+    private JButton save;
+    private  JButton addLinkButton;
+    private JButton saveLinkButton;
+    private JPanel elements;
+    private NetworkModel model;
+    private JButton addInterface;
+    private JButton addElement;
+    private JButton deleteElement;
+    private AddInterfacePanel pan;
+    private AddLinkPanel linkPanel;
+    private AddElement elemPanel;
+    private List<RowNe> listNe;
 
     public MainPanel(NetworkModel model) {
         listNe = new ArrayList<>();
@@ -40,7 +39,6 @@ public class MainPanel extends JPanel implements IObserver {
         JPanel buttons = new JPanel();
         JPanel mpanel = new JPanel();
         addInterface = new JButton("Add Interface");
-        addLink = new JButton("Add Link");
         addElement = new JButton("Add new element");
         deleteElement = new JButton("Delete element");
         textArea = new JTextArea();
@@ -51,6 +49,7 @@ public class MainPanel extends JPanel implements IObserver {
         addLinkButton = new JButton("Add new Link");
         saveLinkButton = new JButton("save Link");
         pan = new AddInterfacePanel(model);
+        infoPanel = new InfoPanel(model);
 
         textArea.setColumns(20);
         textArea.setRows(2);
@@ -60,7 +59,6 @@ public class MainPanel extends JPanel implements IObserver {
         buttons.add(edit);
         buttons.add(save);
         buttons.add(addInterface);
-        buttons.add(addLink);
         buttons.add(addElement);
 
         elements.setLayout(new GridLayout(8, 1));
@@ -70,6 +68,7 @@ public class MainPanel extends JPanel implements IObserver {
         buttons.add(deleteElement);
         mpanel.setLayout(new BorderLayout());
         mpanel.add(buttons, BorderLayout.SOUTH);
+        mpanel.add(infoPanel);
         mpanel.add(textArea, BorderLayout.CENTER);
         mpanel.add(elements , BorderLayout.EAST);
 
@@ -98,14 +97,6 @@ public class MainPanel extends JPanel implements IObserver {
             public void actionPerformed(ActionEvent actionEvent) {
                 pan.setIdNe(textArea.getText());
                 add(pan);
-                revalidate();
-            }
-        });
-        addLink.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                linkPanel.setIdNe(textArea.getText());
-                add(linkPanel);
                 revalidate();
             }
         });
@@ -150,7 +141,6 @@ public class MainPanel extends JPanel implements IObserver {
             }
         });
         add(mpanel);
-       // add(elements);
     }
 
     private void createNElements() {
@@ -160,6 +150,7 @@ public class MainPanel extends JPanel implements IObserver {
             el.getNameNe().addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
+                    infoPanel.setNetworkElement(el.getElement());
                     if( model.canShow(el.getElement().getId()) ) {
                         textArea.setText("");
                         textArea.setText(el.getElement().getId());
