@@ -16,7 +16,7 @@ public class MainPanel extends JPanel implements IObserver {
     private InfoPanel infoPanel;
     private JButton edit;
     private JButton save;
-    private  JButton addLinkButton;
+    private JButton addLinkButton;
     private JButton saveLinkButton;
     private JPanel elements;
     private NetworkModel model;
@@ -38,9 +38,9 @@ public class MainPanel extends JPanel implements IObserver {
         elements = new JPanel();
         JPanel buttons = new JPanel();
         JPanel mpanel = new JPanel();
-        addInterface = new JButton("Add Interface");
+
         addElement = new JButton("Add new element");
-        deleteElement = new JButton("Delete element");
+
         textArea = new JTextArea();
         edit = new JButton("edit");
         edit.setBackground(Color.LIGHT_GRAY);
@@ -58,18 +58,16 @@ public class MainPanel extends JPanel implements IObserver {
         save.setPreferredSize(new Dimension(150,50));
         buttons.add(edit);
         buttons.add(save);
-        buttons.add(addInterface);
         buttons.add(addElement);
 
         elements.setLayout(new GridLayout(8, 1));
         mpanel.setLayout(new BorderLayout(5,5));
         buttons.add(addLinkButton);
         buttons.add(saveLinkButton);
-        buttons.add(deleteElement);
         mpanel.setLayout(new BorderLayout());
         mpanel.add(buttons, BorderLayout.SOUTH);
-        mpanel.add(infoPanel);
-        mpanel.add(textArea, BorderLayout.CENTER);
+        mpanel.add(infoPanel, BorderLayout.CENTER);
+       // mpanel.add(textArea, BorderLayout.CENTER);
         mpanel.add(elements , BorderLayout.EAST);
 
         createNElements();
@@ -80,8 +78,10 @@ public class MainPanel extends JPanel implements IObserver {
             @Override
             public void actionPerformed(ActionEvent e) {
                 model.lockElement(textArea.getText());
-                edit.setBackground(Color.RED);
-                save.setBackground(Color.LIGHT_GRAY);
+                infoPanel.editElement();
+                revalidate();
+                //edit.setBackground(Color.RED);
+                //save.setBackground(Color.LIGHT_GRAY);
             }
         });
         save.addActionListener(new ActionListener() {
@@ -92,14 +92,7 @@ public class MainPanel extends JPanel implements IObserver {
                 edit.setBackground(Color.LIGHT_GRAY);
             }
         });
-        addInterface.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                pan.setIdNe(textArea.getText());
-                add(pan);
-                revalidate();
-            }
-        });
+
         addElement.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -134,12 +127,7 @@ public class MainPanel extends JPanel implements IObserver {
                 System.out.println("UNLOCK ELEMENTS");
             }
         });
-        deleteElement.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                model.deleteNetworkElement(textArea.getText());
-            }
-        });
+
         add(mpanel);
     }
 
