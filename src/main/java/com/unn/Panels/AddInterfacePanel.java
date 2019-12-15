@@ -14,6 +14,7 @@ public class AddInterfacePanel extends JDialog {
     private JLabel nameIntLabel;
     private JLabel ipIntLabel;
     private JLabel macIntLabel;
+    private JLabel header;
     private String idNe;
 
     private JTextField ipAddress;
@@ -28,7 +29,7 @@ public class AddInterfacePanel extends JDialog {
         init();
         setVisible(false);
         setLocationRelativeTo(null);
-        setSize(350, 200);
+        setSize(400, 350);
     }
 
     public void setIdNe(String idNe){
@@ -39,6 +40,7 @@ public class AddInterfacePanel extends JDialog {
         JPanel labelPanel = new JPanel();
         JPanel mPanel = new JPanel();
         JPanel buttonPanel = new JPanel();
+        JPanel headPanel = new JPanel();
 
         addButton = new JButton("Add");
 
@@ -54,6 +56,8 @@ public class AddInterfacePanel extends JDialog {
         macAddress = new JTextField();
         macAddress.setColumns(30);
 
+        header = new JLabel("Adding Interface");
+
         labelPanel.setLayout(new GridLayout(3,2));
         //labelPanel.setPreferredSize(new Dimension(400, 300));
         labelPanel.add(nameIntLabel);
@@ -66,7 +70,11 @@ public class AddInterfacePanel extends JDialog {
         buttonPanel.setLayout(new FlowLayout());
         buttonPanel.add(addButton);
 
+        headPanel.setLayout(new FlowLayout());
+        headPanel.add(header);
+
         mPanel.setLayout(new BorderLayout(5,10));
+        mPanel.add(headPanel, BorderLayout.NORTH);
         mPanel.add(labelPanel, BorderLayout.CENTER);
         mPanel.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -76,7 +84,10 @@ public class AddInterfacePanel extends JDialog {
                 model.addInterface("{ \"name\": \"" + nameInterface.getText()+ "\"," +
                         " \"ip-address\": \"" + ipAddress.getText() + "\"," +
                         "\"mac-address\": \"" + macAddress.getText() + "\" }", idNe);
-
+                dispose();
+                nameInterface.setText("");
+                ipAddress.setText("");
+                macAddress.setText("");
             }
         });
         add(mPanel);
