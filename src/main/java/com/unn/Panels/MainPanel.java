@@ -72,16 +72,12 @@ public class MainPanel extends JPanel implements IObserver {
                 model.lockElement(textArea.getText());
                 infoPanel.editElement();
                 revalidate();
-                //edit.setBackground(Color.RED);
-                //save.setBackground(Color.LIGHT_GRAY);
             }
         });
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 model.releaseElement(textArea.getText());
-                save.setBackground(Color.RED);
-                edit.setBackground(Color.LIGHT_GRAY);
             }
         });
 
@@ -103,7 +99,6 @@ public class MainPanel extends JPanel implements IObserver {
                 });
                 if(networkElements.size()!=2){
                     networkElements.removeAll(networkElements);
-                    System.out.println("NEED SELECTED TWO ELEMENTS");
                     JOptionPane.showMessageDialog(null, "NEED SELECTED TWO ELEMENTS");
                 }
                 else {

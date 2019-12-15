@@ -4,13 +4,16 @@ import com.unn.IObserver;
 import com.unn.model.Link;
 import com.unn.model.NetworkElement;
 import com.unn.model.NetworkModel;
+import com.unn.model.Route;
 import lombok.Data;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Data
 public class InfoPanel extends Panel implements IObserver {
@@ -32,6 +35,7 @@ public class InfoPanel extends Panel implements IObserver {
 
 
       this.model = model;
+      model.addObserver(this);
       setLayout(new GridLayout(10,1));
       pan = new AddInterfacePanel(model);
 
@@ -66,12 +70,14 @@ public class InfoPanel extends Panel implements IObserver {
       removeAll();
       revalidate();
       networkElement = ne;
+      Map<String, List<Route>> routes = new HashMap<>();
       links = model.getLinks(ne.getId());
 
       JLabel interfaces = new JLabel("INTERFACES");
       add(interfaces);
       networkElement.getInterfaces().forEach(inter->{
 
+         routes.put(inter.getName(), model.getRoutes(inter.getId()));
          JLabel name = new JLabel(inter.getName());
          JLabel ip = new JLabel(inter.getIpAddress());
          JLabel mac = new JLabel(inter.getMacAddress());
@@ -82,7 +88,7 @@ public class InfoPanel extends Panel implements IObserver {
          add(interfacePanel);
       });
 
-      JLabel linksLabel = new JLabel("LINKS");
+      /*JLabel linksLabel = new JLabel("LINKS");
       add(linksLabel);
       links.forEach(link->{
 
@@ -98,7 +104,26 @@ public class InfoPanel extends Panel implements IObserver {
          linkPanel.add(elementZ);
          linkPanel.add(interfaceZ);
          add(linkPanel);
-      });
+      });*/
+/*
+      routes.forEach((key, route)->{
+         JLabel interfaceA = new JLabel(key);
+         JPanel rP = new JPanel(new GridLayout(route.size()+1, 1 ));
+         rP.add(interfaceA);
+         route.forEach(r->{
+            JLabel elementZ = new JLabel(r.getNe()+" - ");
+            JLabel interfaceZ = new JLabel(r.getInter());
+            JLabel hops = new JLabel( "hops = " + r.getHops());
+            JPanel linkPanel = new JPanel();
+            linkPanel.add(elementZ);
+            linkPanel.add(interfaceZ);
+            linkPanel.add(hops);
+            rP.add(linkPanel);
+
+         });
+
+         add(rP) ;
+      });*/
 
       revalidate();
       repaint();

@@ -107,4 +107,8 @@ public class NetworkModel {
     public List<Link> getLinks(String id) {
         return service.getLinks(id);
     }
+
+    public List<Route> getRoutes(String id) {
+        return service.getRoutes(id);
+    }
 }

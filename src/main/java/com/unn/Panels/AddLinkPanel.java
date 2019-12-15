@@ -86,6 +86,7 @@ public class AddLinkPanel extends JDialog {
                         "\"z-ne\": \""  + neZ.getName() + "\","+
                         "\"a-interface\": \"" + aIntCombo.getSelectedItem() + "\","+
                         "\"z-interface\": \""+ zIntCombo.getSelectedItem() +"\" }");
+                model.releaseElements(neA.getId(), neZ.getId());
                 dispose();
             }
         });

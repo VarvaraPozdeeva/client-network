@@ -165,4 +165,16 @@ public class Service {
         }
         return  links;
     }
+
+    public List<Route> getRoutes(String id) {
+
+        String response = restService.path("route").path(id).get(String.class);
+        List<Route> routes = null;
+        try {
+            routes = mapper.readValue(response, new TypeReference<List<Route>>(){});
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return  routes;
+    }
 }
