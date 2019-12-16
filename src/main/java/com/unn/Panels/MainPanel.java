@@ -5,6 +5,8 @@ import com.unn.model.NetworkElement;
 import com.unn.model.NetworkModel;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +22,7 @@ public class MainPanel extends JPanel implements IObserver {
     private JPanel elements;
     private NetworkModel model;
     private JButton addElement;
+
     GridLayout g;
 
     private AddElement elemPanel;
@@ -35,6 +38,8 @@ public class MainPanel extends JPanel implements IObserver {
         elements = new JPanel();
         JPanel buttons = new JPanel();
         JPanel mpanel = new JPanel();
+        JPanel biPanel = new JPanel();
+        JPanel bPanfI = new JPanel();
 
         addElement = new JButton("Add new element");
 
@@ -46,26 +51,34 @@ public class MainPanel extends JPanel implements IObserver {
         addLinkButton = new JButton("Add new Link");
         infoPanel = new InfoPanel(model);
 
+
         textArea.setColumns(20);
         textArea.setRows(2);
         textArea.setPreferredSize(new Dimension(300,250));
-        edit.setPreferredSize(new Dimension(150, 50));
-        save.setPreferredSize(new Dimension(150,50));
+        //save.setPreferredSize(new Dimension(150,50));
+
         buttons.add(edit);
-        buttons.add(save);
+        //buttons.add(save);
         buttons.add(addElement);
+        buttons.add(addLinkButton);
 
         g = new GridLayout(model.getNetworkElements().size(), 1);
         elements.setLayout(g);
-        mpanel.setLayout(new BorderLayout(5,5));
-        buttons.add(addLinkButton);
-        mpanel.setLayout(new BorderLayout());
-        mpanel.add(buttons, BorderLayout.SOUTH);
-        mpanel.add(infoPanel, BorderLayout.CENTER);
-        mpanel.add(elements , BorderLayout.EAST);
+        Border infBor = BorderFactory.createCompoundBorder(new LineBorder(Color.PINK, 4, true),
+                BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        bPanfI.setBorder(infBor);
+        bPanfI.add(infoPanel);
+        biPanel.setLayout(new BorderLayout(0,20));
+        biPanel.add(buttons, BorderLayout.NORTH);
+        biPanel.add(bPanfI, BorderLayout.CENTER);
+        mpanel.setLayout(new GridLayout(1,2));
+        mpanel.add(biPanel);
+        mpanel.add(elements);
+
 
         createNElements();
         elemPanel = new AddElement(model);
+
         edit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
