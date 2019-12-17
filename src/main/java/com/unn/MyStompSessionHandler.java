@@ -58,10 +58,15 @@ public class MyStompSessionHandler extends StompSessionHandlerAdapter {
                             if(!message.getFrom().equals(userId)){
                                 service.getLockingElements().add(message.getIdNeA());
                             }
+                            else{
+                                service.getMyElem().add(message.getIdNeA());
+                                service.setEdit(true);
+                            }
                             break;
                         }
                         case 2:{
                             service.getLockingElements().remove(message.getIdNeA());
+                            service.setEdit(false);
                             break;
                         }
                         case 3:{

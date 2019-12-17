@@ -37,12 +37,15 @@ public class Service {
     WebResource restService;
     ObjectMapper mapper;
     List<String> lockingElements;
+    List<String> myElem;
     Client client;
     NetworkModel model;
+    Boolean edit = false;
 
     public Service(NetworkModel model) {
         this.model = model;
         lockingElements = new ArrayList<>();
+        myElem = new ArrayList<>();
         createSocket();
         ClientConfig config = new DefaultClientConfig();
         mapper = new ObjectMapper();

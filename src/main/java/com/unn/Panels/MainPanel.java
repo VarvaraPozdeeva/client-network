@@ -87,12 +87,6 @@ public class MainPanel extends JPanel implements IObserver {
                 }
             }
         });
-       /* save.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                model.releaseElement(neID);
-            }
-        });*/
 
         addElement.addActionListener(new ActionListener() {
             @Override
