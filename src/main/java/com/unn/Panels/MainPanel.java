@@ -139,6 +139,8 @@ public class MainPanel extends JPanel implements IObserver {
                         if( model.canShow(el.getElement().getId()) ) {
                             neID = el.getElement().getId();
                             infoPanel.setNetworkElement(el.getElement());
+                        }else{
+                            JOptionPane.showMessageDialog(null, "ELEMENT IS LOCKED");
                         }
                     }
                 });
