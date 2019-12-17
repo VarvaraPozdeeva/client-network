@@ -31,10 +31,9 @@ public class ClientApplication extends JFrame {
 
         JPanel main = new MainPanel(networkModel);
         //JPanel add = new AddPanel(networkModel);
-        tabbedPane.addTab("Main", main);
+        //tabbedPane.addTab("Main", main);
         //tabbedPane.addTab("Add", add);
-
-        content.add(tabbedPane, BorderLayout.CENTER);
+        content.add(main, BorderLayout.CENTER);
         getContentPane().add(content);
     }
 
