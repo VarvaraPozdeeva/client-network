@@ -26,6 +26,7 @@ public class InfoPanel extends Panel implements IObserver {
    private JButton deleteElement;
    private JButton saveElement;
    private AddInterfacePanel pan;
+   private JPanel buttonPanel;
 
 
    InfoPanel(NetworkModel model) {
@@ -105,7 +106,7 @@ public class InfoPanel extends Panel implements IObserver {
          linkPanel.add(interfaceZ);
          add(linkPanel);
       });*/
-/*
+
       routes.forEach((key, route)->{
          JLabel interfaceA = new JLabel(key);
          JPanel rP = new JPanel(new GridLayout(route.size()+1, 1 ));
@@ -123,14 +124,14 @@ public class InfoPanel extends Panel implements IObserver {
          });
 
          add(rP) ;
-      });*/
+      });
 
       revalidate();
       repaint();
    }
 
    public void editElement(){
-      JPanel buttonPanel = new JPanel();
+      buttonPanel = new JPanel();
       buttonPanel.setLayout(new FlowLayout());
       buttonPanel.add(addInterface);
       buttonPanel.add(deleteElement);
@@ -141,9 +142,9 @@ public class InfoPanel extends Panel implements IObserver {
 
    public void saveElement() {
       model.releaseElement(networkElement.getId());
-      remove(addInterface);
-      remove(deleteElement);
-      remove(saveElement);
+      buttonPanel.remove(addInterface);
+      buttonPanel.remove(deleteElement);
+      buttonPanel.remove(saveElement);
       repaint();
    }
 

@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainPanel extends JPanel implements IObserver {
-    private JTextArea textArea;
     private InfoPanel infoPanel;
     private JButton edit;
     private JButton save;
@@ -23,8 +22,8 @@ public class MainPanel extends JPanel implements IObserver {
     private JPanel elements;
     private NetworkModel model;
     private JButton addElement;
-
-    GridLayout g;
+    private String neID ="";
+    private GridLayout g;
 
     private AddElement elemPanel;
     private List<RowNe> listNe;
@@ -44,7 +43,6 @@ public class MainPanel extends JPanel implements IObserver {
 
         addElement = new JButton("Add new element");
 
-        textArea = new JTextArea();
         edit = new JButton("edit");
         edit.setBackground(Color.LIGHT_GRAY);
         save = new JButton("save");
@@ -52,23 +50,15 @@ public class MainPanel extends JPanel implements IObserver {
         addLinkButton = new JButton("Add new Link");
         infoPanel = new InfoPanel(model);
 
-
-        textArea.setColumns(20);
-        textArea.setRows(2);
-        textArea.setPreferredSize(new Dimension(300,250));
-        //save.setPreferredSize(new Dimension(150,50));
-
         buttons.add(edit);
-        //buttons.add(save);
         buttons.add(addElement);
         buttons.add(addLinkButton);
 
         g = new GridLayout(model.getNetworkElements().size(), 1);
         elements.setLayout(g);
         Border infBor = BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(
-                        BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),
-                        "title"),
-                BorderFactory.createEmptyBorder(30, 30, 30, 30));
+                        BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), neID),
+                        BorderFactory.createEmptyBorder(30, 30, 30, 30));
         bPanfI.setBorder(infBor);
         bPanfI.add(infoPanel);
         biPanel.setLayout(new BorderLayout(0,20));
@@ -78,22 +68,23 @@ public class MainPanel extends JPanel implements IObserver {
         mpanel.add(biPanel);
         mpanel.add(elements);
 
-
         createNElements();
         elemPanel = new AddElement(model);
 
         edit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                model.lockElement(textArea.getText());
-                infoPanel.editElement();
-                revalidate();
+                if(model.canShow(neID)) {
+                    model.lockElement(neID);
+                    infoPanel.editElement();
+                    revalidate();
+                }
             }
         });
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                model.releaseElement(textArea.getText());
+                model.releaseElement(neID);
             }
         });
 
@@ -138,14 +129,13 @@ public class MainPanel extends JPanel implements IObserver {
             RowNe el = new RowNe(e);
             el.getNameNe().addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    infoPanel.setNetworkElement(el.getElement());
-                    if( model.canShow(el.getElement().getId()) ) {
-                        textArea.setText("");
-                        textArea.setText(el.getElement().getId());
+                public void actionPerformed(ActionEvent e) {
+                        if( model.canShow(el.getElement().getId()) ) {
+                            neID = el.getElement().getId();
+                            infoPanel.setNetworkElement(el.getElement());
+                        }
                     }
-                }
-            });
+                });
             listNe.add(el);
             elements.add(el);
             elements.revalidate();
