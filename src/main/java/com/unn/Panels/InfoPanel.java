@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Data
 public class InfoPanel extends Panel implements IObserver {
@@ -33,12 +34,14 @@ public class InfoPanel extends Panel implements IObserver {
       addInterface = new JButton("Add Interface");
       deleteElement = new JButton("Delete Element");
       saveElement = new JButton("Save");
-
+      setPreferredSize(new Dimension(400,800));
 
       this.model = model;
       model.addObserver(this);
-      setLayout(new GridLayout(10,1));
+
       pan = new AddInterfacePanel(model);
+
+     // setLayout(new GridLayout(0,1));
 
       addInterface.addActionListener(new ActionListener() {
          @Override
@@ -68,6 +71,7 @@ public class InfoPanel extends Panel implements IObserver {
    }
 
    public void setNetworkElement(NetworkElement ne){
+      AtomicReference<Integer> counter = new AtomicReference<>(0);
       removeAll();
       revalidate();
       networkElement = ne;
@@ -77,7 +81,6 @@ public class InfoPanel extends Panel implements IObserver {
       JLabel interfaces = new JLabel("INTERFACES");
       add(interfaces);
       networkElement.getInterfaces().forEach(inter->{
-
          routes.put(inter.getName(), model.getRoutes(inter.getId()));
          JLabel name = new JLabel(inter.getName());
          JLabel ip = new JLabel(inter.getIpAddress());
@@ -87,30 +90,14 @@ public class InfoPanel extends Panel implements IObserver {
          interfacePanel.add(ip);
          interfacePanel.add(mac);
          add(interfacePanel);
+         counter.set(counter.get() + 2);
       });
 
-      /*JLabel linksLabel = new JLabel("LINKS");
-      add(linksLabel);
-      links.forEach(link->{
-
-         JLabel elementA = new JLabel(link.getNeAName()+" - ");
-         JLabel elementZ = new JLabel(link.getNeZName()+" - ");
-         JLabel l = new JLabel("-- >");
-         JLabel interfaceA = new JLabel(link.getInterAName());
-         JLabel interfaceZ = new JLabel(link.getInterZName());
-         JPanel linkPanel = new JPanel();
-         linkPanel.add(elementA);
-         linkPanel.add(interfaceA);
-         linkPanel.add(l);
-         linkPanel.add(elementZ);
-         linkPanel.add(interfaceZ);
-         add(linkPanel);
-      });*/
 
       routes.forEach((key, route)->{
+
          JLabel interfaceA = new JLabel(key);
-         JPanel rP = new JPanel(new GridLayout(route.size()+1, 1 ));
-         rP.add(interfaceA);
+         add(interfaceA);
          route.forEach(r->{
             JLabel elementZ = new JLabel(r.getNe()+" - ");
             JLabel interfaceZ = new JLabel(r.getInter());
@@ -119,13 +106,11 @@ public class InfoPanel extends Panel implements IObserver {
             linkPanel.add(elementZ);
             linkPanel.add(interfaceZ);
             linkPanel.add(hops);
-            rP.add(linkPanel);
-
+            add(linkPanel);
+            counter.set(counter.get() + 1);
          });
-
-         add(rP) ;
       });
-
+      setLayout(new GridLayout(counter.get()+1, 1));
       revalidate();
       repaint();
    }
@@ -151,7 +136,7 @@ public class InfoPanel extends Panel implements IObserver {
    @Override
    public void update() {
       model.getNetworkElements().forEach(element->{
-         if (networkElement.getId().equals(element.getId())){
+         if (networkElement != null && networkElement.getId().equals(element.getId())){
             setNetworkElement(element);
          }
       });

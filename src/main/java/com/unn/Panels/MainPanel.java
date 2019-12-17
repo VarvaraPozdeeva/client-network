@@ -17,7 +17,6 @@ import java.util.List;
 public class MainPanel extends JPanel implements IObserver {
     private InfoPanel infoPanel;
     private JButton edit;
-    private JButton save;
     private JButton addLinkButton;
     private JPanel elements;
     private NetworkModel model;
@@ -44,9 +43,6 @@ public class MainPanel extends JPanel implements IObserver {
         addElement = new JButton("Add new element");
 
         edit = new JButton("edit");
-        edit.setBackground(Color.LIGHT_GRAY);
-        save = new JButton("save");
-        save.setBackground(Color.RED);
         addLinkButton = new JButton("Add new Link");
         infoPanel = new InfoPanel(model);
 
@@ -61,9 +57,17 @@ public class MainPanel extends JPanel implements IObserver {
                         BorderFactory.createEmptyBorder(30, 30, 30, 30));
         bPanfI.setBorder(infBor);
         bPanfI.add(infoPanel);
+
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setViewportView(bPanfI);
+        JPanel panel = new JPanel();
+        panel.setPreferredSize(new Dimension(400,400));
+        panel.setLayout(new BorderLayout());
+        panel.add(scrollPane);
+
         biPanel.setLayout(new BorderLayout(0,20));
         biPanel.add(buttons, BorderLayout.NORTH);
-        biPanel.add(bPanfI, BorderLayout.CENTER);
+        biPanel.add(panel, BorderLayout.CENTER);
         mpanel.setLayout(new GridLayout(1,2));
         mpanel.add(biPanel);
         mpanel.add(elements);
@@ -81,12 +85,12 @@ public class MainPanel extends JPanel implements IObserver {
                 }
             }
         });
-        save.addActionListener(new ActionListener() {
+       /* save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 model.releaseElement(neID);
             }
-        });
+        });*/
 
         addElement.addActionListener(new ActionListener() {
             @Override

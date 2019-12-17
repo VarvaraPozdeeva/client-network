@@ -18,17 +18,6 @@ public class NetworkElement {
     @JsonProperty("interfaces")
     private List<Interface> interfaces = new ArrayList<>();
 
-    @Override
-    public String toString() {
-        return "NetworkElement{" +
-                "id='" + id + '\'' +
-                ",\nname='" + name + '\'' +
-                ",\ntype='" + type + '\'' +
-                ",\nvendor='" + vendor + '\'' +
-                ",\ninterfaces=" + interfaces +
-                '}';
-    }
-
     public boolean addInterface(Interface inter){
         return interfaces.add(inter);
     }

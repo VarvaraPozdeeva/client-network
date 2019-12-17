@@ -9,9 +9,7 @@ public class Link {
     @JsonProperty("id")
     private String id;
 
-//    @JsonProperty("interfaceA")
     private  Interface interfaceA;
-//    @JsonProperty("interfaceZ")
     private  Interface interfaceZ;
     @JsonProperty("a-ne")
     private String neAName;
@@ -24,11 +22,4 @@ public class Link {
 
     @JsonProperty("z-interface")
     private String interZName;
-
-   /*
-   "{ \"a-ne\": \" "+ + "\","+
-            "\"z-ne\": \""  + + "\","+
-            "\"a-interface\": \"" + + "\","+
-            "\"z-interface\": \" "+ +"\" }"
-   */
 }
