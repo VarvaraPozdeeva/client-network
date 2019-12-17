@@ -61,7 +61,7 @@ public class MainPanel extends JPanel implements IObserver {
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(bPanfI);
         JPanel panel = new JPanel();
-        panel.setPreferredSize(new Dimension(400,400));
+        panel.setPreferredSize(new Dimension(600,400));
         panel.setLayout(new BorderLayout());
         panel.add(scrollPane);
 

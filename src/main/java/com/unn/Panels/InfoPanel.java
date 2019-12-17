@@ -34,14 +34,13 @@ public class InfoPanel extends Panel implements IObserver {
       addInterface = new JButton("Add Interface");
       deleteElement = new JButton("Delete Element");
       saveElement = new JButton("Save");
-      setPreferredSize(new Dimension(400,800));
+      setPreferredSize(new Dimension(500,700));
 
       this.model = model;
       model.addObserver(this);
 
       pan = new AddInterfacePanel(model);
 
-     // setLayout(new GridLayout(0,1));
 
       addInterface.addActionListener(new ActionListener() {
          @Override
@@ -78,13 +77,21 @@ public class InfoPanel extends Panel implements IObserver {
       Map<String, List<Route>> routes = new HashMap<>();
       links = model.getLinks(ne.getId());
 
-      JLabel interfaces = new JLabel("INTERFACES");
+
+
+      JLabel interfaces = new JLabel("Interfaces:");
+      Label element = new Label(networkElement.getName());
+      add(element);
+      element.setForeground(Color.BLUE);
+      element.setAlignment(Label.CENTER);
+      interfaces.setForeground(Color.BLUE);
       add(interfaces);
+
       networkElement.getInterfaces().forEach(inter->{
          routes.put(inter.getName(), model.getRoutes(inter.getId()));
-         JLabel name = new JLabel(inter.getName());
-         JLabel ip = new JLabel(inter.getIpAddress());
-         JLabel mac = new JLabel(inter.getMacAddress());
+         JLabel name = new JLabel("name:" + inter.getName());
+         JLabel ip = new JLabel("ip;" + inter.getIpAddress());
+         JLabel mac = new JLabel("MAC" + inter.getMacAddress());
          JPanel interfacePanel = new JPanel();
          interfacePanel.add(name);
          interfacePanel.add(ip);
@@ -97,7 +104,13 @@ public class InfoPanel extends Panel implements IObserver {
       routes.forEach((key, route)->{
 
          JLabel interfaceA = new JLabel(key);
+         interfaceA.setForeground(Color.BLUE);
          add(interfaceA);
+         if(route.size()==0){
+            JLabel hops = new JLabel( "This interface hasn`t link");
+            add(hops);
+            counter.set(counter.get() + 1);
+         }
          route.forEach(r->{
             JLabel elementZ = new JLabel(r.getNe()+" - ");
             JLabel interfaceZ = new JLabel(r.getInter());
@@ -110,7 +123,7 @@ public class InfoPanel extends Panel implements IObserver {
             counter.set(counter.get() + 1);
          });
       });
-      setLayout(new GridLayout(counter.get()+1, 1));
+      setLayout(new GridLayout(counter.get()+3, 1));
       revalidate();
       repaint();
    }
