@@ -82,6 +82,8 @@ public class MainPanel extends JPanel implements IObserver {
                     model.lockElement(neID);
                     infoPanel.editElement();
                     revalidate();
+                }else {
+                    JOptionPane.showMessageDialog(null, "ELEMENT IS LOCKED");
                 }
             }
         });

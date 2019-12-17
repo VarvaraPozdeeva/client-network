@@ -89,7 +89,8 @@ public class AddElement extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(neField.getText().equals("")){
-                    neField.setText("enter name");
+                   // neField.setText("enter name");
+                    JOptionPane.showMessageDialog(null, "ENTER NAME");
                }
                 else {
                     NetworkElement ne = model.addNetworkElementWithInterface("{ \"name\": \"" + neField.getText()+ "\", "+
