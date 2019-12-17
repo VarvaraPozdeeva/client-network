@@ -6,6 +6,7 @@ import com.unn.model.NetworkModel;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -64,8 +65,10 @@ public class MainPanel extends JPanel implements IObserver {
 
         g = new GridLayout(model.getNetworkElements().size(), 1);
         elements.setLayout(g);
-        Border infBor = BorderFactory.createCompoundBorder(new LineBorder(Color.PINK, 4, true),
-                BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        Border infBor = BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(
+                        BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),
+                        "title"),
+                BorderFactory.createEmptyBorder(30, 30, 30, 30));
         bPanfI.setBorder(infBor);
         bPanfI.add(infoPanel);
         biPanel.setLayout(new BorderLayout(0,20));
